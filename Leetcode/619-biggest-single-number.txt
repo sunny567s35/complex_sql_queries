@@ -65,3 +65,13 @@ Output:
 Explanation: There are no single numbers in the input table so we return null.
 
 Solution :
+
+
+select max(num) as num
+from(
+    select num,count(num)as cnt
+    from MyNumbers
+    group by num
+    
+) x
+where x.cnt =1
