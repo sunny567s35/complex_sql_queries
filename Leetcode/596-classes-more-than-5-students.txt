@@ -47,4 +47,9 @@ Explanation:
 - Biology has 1 student, so we do not include it.
 - Computer has 1 student, so we do not include it.
 
-Solution :
+Solution  :
+
+select class
+from Courses
+group by 1
+having count(class) >=5
