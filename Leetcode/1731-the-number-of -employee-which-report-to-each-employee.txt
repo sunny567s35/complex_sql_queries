@@ -71,3 +71,10 @@ Output:
 Solution:
 
 
+# Write your MySQL query statement below
+select x.employee_id ,x.name,count(x.age) as reports_count,
+ round(avg(age)) as average_age
+from (select e1.employee_id , e1.name , e2.age from Employees e1
+join Employees e2 on e1.employee_id = e2.reports_to) x 
+group by 1
+order by x.employee_id
