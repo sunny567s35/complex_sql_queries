@@ -44,3 +44,13 @@ Output:
 +----+---------+
 Explanation: 
 Note that if the number of students is odd, there is no need to change the last one's seat.
+
+
+Solution :
+
+select id,
+case when
+    id %2=0 then lag(student) over(order by id) 
+    when id%2<>0 then coalesce(lead(student,1) over(order by student),student)  
+    end as student
+ from Seat 
