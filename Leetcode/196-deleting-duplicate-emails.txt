@@ -41,3 +41,12 @@ Output:
 | 2  | bob@example.com  |
 +----+------------------+
 Explanation: john@example.com is repeated two times. We keep the row with the smallest Id = 1.
+
+
+Solution :
+
+delete b.*
+from Person a
+join Person b
+on a.email = b.email
+where a.id < b.id
