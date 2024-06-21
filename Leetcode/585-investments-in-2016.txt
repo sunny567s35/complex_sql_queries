@@ -51,3 +51,27 @@ The tiv_2015 value 10 is the same as the third and fourth records, and its locat
 
 The second record does not meet any of the two criteria. Its tiv_2015 is not like any other policyholders and its location is the same as the third record, which makes the third record fail, too.
 So, the result is the sum of tiv_2016 of the first and last record, which is 45.
+
+Solution :
+# 1- distinct lat and lon
+# 2- same tiv_2015
+with same_info as (
+select i.tiv_2015 ,i.tiv_2016 , i.lat,lon
+from Insurance i
+where i.tiv_2015 in (
+    select tiv_2015 
+    from Insurance
+    where i.lat <> lat and i.lon <> lon
+)
+),lat as (
+    select lat , lon
+    from Insurance
+    group by 1,2
+    having count(lat)=1 and count(lon) =1
+
+)
+
+select round(sum(tiv_2016),2) as tiv_2016
+from lat a , same_info b
+where a.lat = b.lat 
+and a.lon = b.lon
