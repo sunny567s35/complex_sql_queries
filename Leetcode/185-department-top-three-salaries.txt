@@ -78,3 +78,17 @@ In the Sales department:
 - Henry earns the highest salary
 - Sam earns the second-highest salary
 - There is no third-highest salary as there are only two employees
+
+
+Solution :
+
+
+
+# Write your MySQL query statement below
+select  d.name as Department, x.name as Employee , x.salary as Salary 
+from (
+select name , salary , departmentId,
+dense_rank() over(partition by departmentId order by salary desc   ) as rank_col
+from Employee as e) x 
+left join Department d on d.id = x.departmentId
+where x.rank_col in (1,2,3)
