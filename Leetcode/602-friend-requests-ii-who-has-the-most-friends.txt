@@ -43,3 +43,16 @@ The person with id 3 is a friend of people 1, 2, and 4, so he has three friends 
 
 Solution :
 
+select x.id ,count(id) as num
+from (
+(select requester_id as id 
+from RequestAccepted
+)
+union all
+( select accepter_id as id
+    from RequestAccepted
+)
+) x
+group by 1
+order by 2 desc
+limit 1
